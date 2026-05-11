@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -18,6 +19,9 @@ public class OrderController {
     @Autowired
     private EurekaClient discoveryClient;
 
+    @Autowired
+    private RestClient restClient;
+
     @GetMapping("/order/call-product")
     public String getProductInfo() {
         List<ServiceInstance> instances = discoveryClient.getInstancesById("PRODUCT-SERVICE");
@@ -27,8 +31,13 @@ public class OrderController {
             String baseUrl = serviceInstance.getUri().toString();
 
             String url = baseUrl + "/api/v1/products";
-            return restTemplate.getForObject(url, String.class);
+//            return restTemplate.getForObject(url, String.class);
+            return restClient.get()
+                    .uri(url)
+                    .retrieve()
+                    .body(String.class);
         }
+
 
         return "Không tìm thấy instance nào của PRODUCT-SERVICE";
     }
