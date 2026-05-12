@@ -11,6 +11,7 @@ spring:
               predicates:
                 - Path=/api/v1/customer/**
               filters:
+                - RewritePath=/api/v1/customer/(?<segment>.*), /customer-api/$\{segment}
                 - AddResponseHeader=X-System-Name, Api-Gateway-System
 server:
   port: 8080
