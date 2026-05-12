@@ -28,6 +28,6 @@ public class LoggingFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 1;
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 }

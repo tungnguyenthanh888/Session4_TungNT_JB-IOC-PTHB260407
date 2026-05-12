@@ -10,6 +10,8 @@ spring:
               uri: lb:\\customer-service
               predicates:
                 - Path=/api/v1/customer/**
+              filters:
+                - AddResponseHeader=X-System-Name, Api-Gateway-System
 server:
   port: 8080
 
