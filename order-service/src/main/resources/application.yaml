@@ -23,5 +23,9 @@ eureka:
     fetch-registry: true
   instance:
     prefer-ip-address: true
+    # 5 secs send heart beat
+    lease-renewal-interval-in-seconds: 5
+    # 10secs waiting before delete from eureka server
+    lease-expiration-duration-in-seconds: 10
 server:
   port: 8084
